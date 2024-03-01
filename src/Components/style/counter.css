@@ -1,0 +1,10 @@
+.time{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.time h1{
+    color: White;
+    padding: 5px;
+    text-shadow: rgba(255,162,0,0.46) 0px 0px 14px;
+}

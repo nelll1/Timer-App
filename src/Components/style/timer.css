@@ -11,10 +11,21 @@
     border-radius: 9px;
 }
 .timeContainer{
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(3, 1fr);
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+    text-align: center;
+    align-items: center;
     background: #212121;
     width: 100%;
     height: 100%;
     -webkit-box-shadow:0px 0px 30px 0px rgba(45,255,196,0.9);
 -moz-box-shadow: 0px 0px 30px 0px rgba(45,255,196,0.9);
 box-shadow: 0px 0px 30px 0px rgba(45,255,196,0.9);
+}
+.timeContainer p{
+    color: white;
+    letter-spacing: 1px;
 }
