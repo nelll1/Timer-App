@@ -4,8 +4,7 @@ import Date from './Date'
 import Counter from "./Counter";
 import Play from "./PlayBtn";
 import Reset from "./ResetBtn";
-import Stop from "./StopBtn";
-
+import Beat from './Beat';
 function Timer(){
 
     const [seconds, setSeconds] = useState(0);
@@ -15,34 +14,41 @@ function Timer(){
     const [intervalId, setIntervalId] = useState(null);
 
     useEffect(() => {
-        if (isRunning) {
-            const id = setInterval(() => {
-                setSeconds(prevSeconds => {
-                    if (prevSeconds === 59) {
-                        setMinutes(prevMinutes => prevMinutes + 1);
-                        return 0;
+        if (isRunning) { //if isRunning is true it will run the interval below
+            const id = setInterval(() => { //set interval
+                setSeconds(prevSeconds => { //set Seconds to run
+                    if (prevSeconds === 59) { // if previous second reach 59 it will add 1 in the minutes and then it will return 0
+                        setMinutes(prevMinutes => { //set Minutes
+                            if(prevMinutes === 59){ //if previous minutes reach 59 it will add 1 in the hours then it will return 0 
+                                setHours(prevHours => prevHours + 1) //add 1 in hours
+                                return 0 // return 0 to the value of previous minutes
+                            }else{
+                                return prevMinutes + 1 //add 1 in prevMinutes if it reach 59
+                            }
+                        });
+                        return 0;  //return value to 0 in the prevSecond if it reach 59
                     }else {
-                        return prevSeconds + 1;
+                        return prevSeconds + 1; //add 1 in previous second if its not equal to 59
                     }
                 });
-            }, 100);
+            }, 10); //interval time
 
             setIntervalId(id);
         } else {
-            clearInterval(intervalId);
+            clearInterval(intervalId);//if is Running is false it will stop the execution
         }
 
-        return () => clearInterval(intervalId);
-    }, [isRunning]);
+        return () => clearInterval(intervalId); //if is Running is false it will stop the execution
+    }, [isRunning]);  //it will run only on the first render
 
     const toggleTimer = () => {
-        setIsRunning(!isRunning);
+        setIsRunning(!isRunning); //set false
     };
 
-    const resetTimer = () => {
-        setIsRunning(false);
-        setSeconds(0);
-        setMinutes(0);
+    const resetTimer = () => { //reset
+        setIsRunning(false); //set false to 
+        setSeconds(0); //set to 0
+        setMinutes(0); //set to 0
     };
 
     return (
@@ -54,7 +60,7 @@ function Timer(){
                     <div className="btnContainer">
                         <Reset onClick={resetTimer}/>
                         <Play onClick={toggleTimer} isRunning={isRunning}/>
-                        <Stop />
+                        <Beat/>
                     </div>
                 </div>
             </div>
